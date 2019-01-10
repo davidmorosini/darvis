@@ -1,8 +1,8 @@
 # darvis Project
 
-Para criar o Bot no telegram, acesse o site do (Telegram)[https://web.telegram.org/#/login]
+Para criar o Bot no telegram, acesse o site do [Telegram](https://web.telegram.org/#/login)
 
-Acesse o canal (@BotFather)[https://telegram.me/botfather]
+Acesse o canal [@BotFather](https://telegram.me/botfather)
 
 Comandos:
 
