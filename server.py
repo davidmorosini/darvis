@@ -23,6 +23,10 @@ def send_horas(message):
     h = datetime.now()
     bot.reply_to(message, u"{}:{}:{}".format(h.hour, h.minute, h.second))
 
+@bot.message_handler(commands=['help'])
+def show_commands(message):
+    bot.reply_to(message, u"{}\n{}\n{}".format("/teste", "/horas", "/show"))
+
 bot.polling()
 
 
