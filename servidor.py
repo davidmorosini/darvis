@@ -23,7 +23,7 @@ def show_listar(message):
     
     #Listar Filmes
     qtd_filmes = number_on_string(message.text)
-    if(qtd_filmes == -1):
+    if(qtd_filmes == None):
         #colocar a quantidade default
         qtd_filmes = 10
         text_ += "Listando uma quantidade default de filmes: \n\n"
