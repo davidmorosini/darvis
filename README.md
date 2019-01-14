@@ -24,7 +24,6 @@ O projeto pretende reunir uma série de técnicas de Inteligência Artificial co
 * Para maiores detalhes, utilize a documentação contida no (github)[https://github.com/eternnoir/pyTelegramBotAPI]
 
 
-
 ## Referências
 
 * API de conexão com Telegram [telebot](https://github.com/eternnoir/pyTelegramBotAPI)
