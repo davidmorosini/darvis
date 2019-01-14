@@ -29,3 +29,5 @@ O projeto pretende reunir uma série de técnicas de Inteligência Artificial co
 * API de conexão com Telegram [telebot](https://github.com/eternnoir/pyTelegramBotAPI)
 * Datasets:
 	- [MovieLens](https://grouplens.org/datasets/movielens/)
+
+	
