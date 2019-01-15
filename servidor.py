@@ -22,6 +22,10 @@ if __name__ == '__main__':
         bot = telebot.TeleBot(token)
        
         print('Definindo Listener de entrada...')
+        #Listener para receber mensagens, incialmente toda mensagen sera tratada pelo decodificador,
+        #As unicas excecoes sao as mensagens com comando, ex: /command, estas terao um destino especial
+        #pois podem ser uteis.
+        #Para tratar os comandos:  (commands=['comando'])
         @bot.message_handler(func = lambda m: not((len(m.text.split('/')) > 1)))
         def decodifica(message):
             decode_msg(message, bot)
@@ -40,17 +44,6 @@ if __name__ == '__main__':
     except:
         print('\t# Erro desconhecido, abortando servidor')
         logging.debug('# # Erro desconhecido, abortando servidor')
-
-
-#Listener para receber mensagens, incialmente toda mensagen sera tratada pelo decodificador,
-#As unicas excecoes sao as mensagens com comando, ex: /command, estas terao um destino especial
-#pois podem ser uteis.
-#Para tratar os comandos:  (commands=['comando'])
-@bot.message_handler(func = lambda m: not((len(m.text.split('/')) > 1)))
-def msg(message):
-    #decode_msg(message, bot)
-    bot.send_message(message.chat.id, 'TESTE')
-    
 
 
 
