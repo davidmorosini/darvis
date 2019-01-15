@@ -16,23 +16,23 @@ def decode_msg(msg, bot):
             qtd_filmes = 10
             text_ += "Listando uma quantidade default de filmes: \n\n"
         else:
-            text_ += "Listando os " + str(qtd_filmes) + " como você pediu: \n\n"
+            text_ += "Listando os " + str(qtd_filmes) + " como voce pediu: \n\n"
 
         filmes = show_movies(qtd=qtd_filmes)
 
         for i in range(0, qtd_filmes):
             text_ += filmes[i] + '\n'
 
-        text_ += '\n\nrecomendar [nome do filme] <para recomendações..>'
+        text_ += '\n\nrecomendar [nome do filme] <para recomendacoes..>'
 
         return text_
     elif(len(msg.text.upper().split('RECOMENDAR')) > 1):
         bot.send_message(msg.chat.id, "Deixe me pensar...")
 
         title = msg.text.split('recomendar ')[1]
-        text = "Aqui estão, espero que goste:\n\n"
+        text = "Aqui estao, espero que goste:\n\n"
         text += search_titles(title)
         return text
     else:
-        fail_msg = ['Não entendi..', 'Rapaz, não vou poder ajudar', 'Acho que não entendi o que quer', 'Não sei fazer isso']
+        fail_msg = ['Nao entendi..', 'Rapaz, nao vou poder ajudar', 'Acho que nao entendi o que quer', 'Nao sei fazer isso']
         return fail_msg[randint(0, len(fail_msg) - 1)]

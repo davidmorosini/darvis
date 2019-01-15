@@ -3,7 +3,7 @@ import telebot
 from decodificador import decode_msg
 
 
-#Importando o token de configuração com o telegram
+#Importando o token de configuracao com o telegram
 arquivo = open("token.json").read()
 content = json.loads(arquivo)
 token = content['token']
