@@ -1,3 +1,19 @@
 DEBUG: Arquivo de Log Inicializado -- 15/01/2019 05:12:24 PM 
 DEBUG: Bot sincronizado, inciando Polling. -- 15/01/2019 05:12:24 PM 
 DEBUG: Starting new HTTPS connection (1): api.telegram.org:443 -- 15/01/2019 05:12:24 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:12:47 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:13:07 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:13:28 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:13:48 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:14:09 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:14:29 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:14:50 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:15:11 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:15:31 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:15:52 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:16:12 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:16:33 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:16:53 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:17:14 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:17:34 PM 
+DEBUG: https://api.telegram.org:443 "GET /bot777279243:AAGDWyXGbglJ3nRm0kdal2ABjCrXfNYdHWs/getUpdates?offset=1&timeout=20 HTTP/1.1" 200 23 -- 15/01/2019 05:17:55 PM 
