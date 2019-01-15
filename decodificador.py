@@ -28,7 +28,6 @@ def decode_msg(msg, bot):
 
         text_ += '\n\nrecomendar [nome do filme] <para recomendacoes..>'
 
-        return text_
     elif(len(msg.text.upper().split('RECOMENDAR')) > 1):
         bot.send_message(msg.chat.id, "Deixe me pensar...")
 
