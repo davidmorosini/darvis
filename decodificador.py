@@ -5,9 +5,12 @@ from recomenda import show_movies
 from recomenda import search_titles
 
 def decode_msg(msg, bot):
+
+    text_ = ""
+
+    
     if(len(msg.text.upper().split('LISTAR')) > 1):
         bot.send_message(msg.chat.id, 'Tudo bem, vou selecionar alguns aqui..')
-        text_ = ""
     
         #Listar Filmes
         qtd_filmes = number_on_string(msg.text)
@@ -30,9 +33,11 @@ def decode_msg(msg, bot):
         bot.send_message(msg.chat.id, "Deixe me pensar...")
 
         title = msg.text.split('recomendar ')[1]
-        text = "Aqui estao, espero que goste:\n\n"
-        text += search_titles(title)
-        return text
+        text_ += "Aqui estao, espero que goste:\n\n"
+        text_ += search_titles(title)
     else:
         fail_msg = ['Nao entendi..', 'Rapaz, nao vou poder ajudar', 'Acho que nao entendi o que quer', 'Nao sei fazer isso']
-        return fail_msg[randint(0, len(fail_msg) - 1)]
+        text_ += fail_msg[randint(0, len(fail_msg) - 1)]
+
+    bot.send_message(msg.chat.id, text_)
+

@@ -4,6 +4,7 @@ from decodificador import decode_msg
 import logging
 
 
+
 if __name__ == '__main__':
     log_path = 'Logs/log.log'
     print('Iniciando Servidor...')
@@ -13,17 +14,21 @@ if __name__ == '__main__':
                              format = '%(levelname)s: %(message)s -- %(asctime)s ', \
                              datefmt = '%d/%m/%Y %I:%M:%S %p' )
     logging.debug('Arquivo de Log Inicializado')
-    print('\tOK')
     print('Importando o token de sincronizacao com o telegram...')
     try:
         arquivo = open("token.json").read()
         content = json.loads(arquivo)
         token = content['token']
-        print('\tOK')
         bot = telebot.TeleBot(token)
+       
+        print('Definindo Listener de entrada...')
+        @bot.message_handler(func = lambda m: not((len(m.text.split('/')) > 1)))
+        def decodifica(message):
+            decode_msg(message, bot)
+
         print('Bot sincronizado com servidor do Telegram. Iniciando Poolling.')
         logging.debug('Bot sincronizado, inciando Polling.')
-
+    
         bot.polling()
 
     except FileNotFoundError:
@@ -37,15 +42,15 @@ if __name__ == '__main__':
         logging.debug('# # Erro desconhecido, abortando servidor')
 
 
-
 #Listener para receber mensagens, incialmente toda mensagen sera tratada pelo decodificador,
 #As unicas excecoes sao as mensagens com comando, ex: /command, estas terao um destino especial
 #pois podem ser uteis.
 #Para tratar os comandos:  (commands=['comando'])
-@bot.message_handler(func=lambda m: not((len(m.text.split('/')) > 1)))
+@bot.message_handler(func = lambda m: not((len(m.text.split('/')) > 1)))
 def msg(message):
-    resp = decode_msg(message, bot)
-    bot.send_message(message.chat.id, resp)
+    #decode_msg(message, bot)
+    bot.send_message(message.chat.id, 'TESTE')
+    
 
 
 
