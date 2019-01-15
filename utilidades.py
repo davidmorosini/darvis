@@ -1,4 +1,3 @@
-
 #Busca o primeiro número presenete em uma string
 def number_on_string(txt):
     words = txt.split(' ')
