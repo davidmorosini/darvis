@@ -1,9 +1,8 @@
 from random import randint
-from utilidades import number_on_string
-from utilidades import search_string
-from recomenda import show_movies
-from recomenda import search_titles
+from utilidades import *
+from recomenda import *
 import logging
+import json
 
 import nltk
 from nltk.corpus import stopwords
@@ -19,6 +18,8 @@ from sklearn.naive_bayes import MultinomialNB
 class Decode:
 
     TrainMode = False
+    Chats = None
+    Commands = None
 
     ##Informações necessarias para predicao dos comandos
     modelo_comandos_ = None
@@ -36,31 +37,25 @@ class Decode:
         #Iniciando o Log de treinamentos
         try:
             log_treinos = open('Logs/log_train.log', 'a')
-            logging.debug('Arquivo de de Log de Treinos lido com sucesso.')
+            logging.debug('Arquivo de Log de Treinos lido com sucesso.')
+            self.Chats = load_json('datasets/chats.json')
+            logging.debug('Arquivo de Chats lido com sucesso.')
+            self.Commands = load_json('datasets/commands.json')
+            logging.debug('Arquivo de Comandos lido com sucesso.')
+            self.start_model_decode()
         except:
             logging.debug('Problemas ao ler o arquivo de Log de Treinos, criando um novo.')
             log_treinos = open('Logs/log_train.log', 'w')
-        log_treinos.write('# LOG DE TREINO #\n')
         log_treinos.close()
-            
+
+    def __del__(self):
+        #destructor
+        logging.debug('Finalizando Decodificador..')
+        flush_json('datasets/chats.json', self.Chats)
     
-    def write_log_train(self, msg):
-        try:
-            log_treinos = open('Logs/log_train.log', 'a')
-            log_treinos.write(msg + '\n')
-            log_treinos.close()
-        except:
-            pass
-
-    def write_dataset_comandos(self, txt):
-        try:
-            dataset_comandos = open('datasets/comandos', 'a')
-            dataset_comandos.write(txt + '\n')
-            dataset_comandos.close()
-        except:
-            pass
 
 
+#------------------------------------------------------------------------------------#            
     def processa_comando(self, comando):
         #Retira as pontuações
         aux = [char for char in comando if char not in string.punctuation]
@@ -72,7 +67,7 @@ class Decode:
 
 
 
-    def start_model_decode(self):
+    def start_model_decode(self): 
         logging.debug('Carregando modelo para predicoes de comando')
 
         #Ler o dataset de comandos
@@ -98,69 +93,71 @@ class Decode:
         #Naive Bayes para treinamento
         modelo_comandos = MultinomialNB().fit(comandos_tfidf, comandos['label'])
         self.modelo_comandos_ = modelo_comandos
+
         
     def prediz_comando(self, string):
-        if(string == None):
-            return None
-        else:
+        label = None
+        if(string != None):
             bow_predict = self.bow_transformer_.transform([string])
             tfidf_predict = self.tfidf_transformer_.transform(bow_predict)
-            return self.modelo_comandos_.predict(tfidf_predict)[0]
-    
+            label = self.modelo_comandos_.predict(tfidf_predict)[0]
+        return label
+#------------------------------------------------------------------------------------#
 
     def decode_msg(self, msg, bot):
+        #Atualiza estado no arquivo de chats
+        try:
+            ch = self.Chats[msg.chat.username]
+        except KeyError:
+            create_chat(self.Chats, msg.chat.username, 0, msg.chat.id,\
+                        msg.chat.first_name)
+
+        user = self.Chats[msg.chat.username]
+
+        
         if(self.TrainMode):
-            
-            if(self.pendencias != None):
-                if(msg.text.lower() == 'recomendar'):
-                    self.write_dataset_comandos('recomendar\t' + self.ultimo_comando)
-                    self.ultimo_comando = None
-                    self.pendencias = None
-                    self.start_model_decode()
-                    bot.send_message(msg.chat.id, 'Ja anotei no meu rascunho para nao esquecer mais!')
-                    
-                elif(msg.text.lower() == 'listar'):
-                    self.write_dataset_comandos('listar\t' + self.ultimo_comando)
-                    self.ultimo_comando = None
-                    self.pendencias = None
-                    self.start_model_decode()
-                    bot.send_message(msg.chat.id, 'Ja anotei no meu rascunho para nao esquecer mais!')
+            retreinar = False
 
-                elif(msg.text.lower() == 'nada'):
-                    self.write_dataset_comandos('nada\t' + self.ultimo_comando)
-                    self.ultimo_comando = None
-                    self.pendencias = None
-                    self.start_model_decode()
-                    bot.send_message(msg.chat.id, 'Ja anotei no meu rascunho para nao esquecer mais!')
-
-                else:
-                   bot.send_message(msg.chat.id, 'Vish.. Acho que voce errou ein.. Manda de novo por gentileza o comando correto :D') 
+            if(user['last_msg']['pendings']):
+                #Se o usuário atual tiver alguma pendencia..
+                try:
+                    label = self.Commands['not-handlers'][msg.text.lower()]
+                    append_arq('datasets/comandos', msg.text.lower() + '\t' + user['last_msg']['msg'])
+                    bot.send_message(msg.chat.id, 'Ja anotei no meu rascunho para nao esquecer!')
+                    retreinar = True
+                except KeyError:
+                    bot.send_message(msg.chat.id, 'Vish.. Acho que voce errou ein.. Manda de novo por gentileza o comando correto :D') 
                 
             else:
-                if(msg.text.lower() == 'n' and self.ultimo_comando != None):
+                if(msg.text.lower() == 'n' and user['new_msg']):
                     bot.send_message(msg.chat.id, 'Poxa, me desculpe, estou aprendendo ainda..'+\
                                      ' Me ajude a melhorar me indicando qual seria o comando correto:\n'+\
-                                     '[recomendar, listar, nada]')
-                    self.pendencias = self.ultimo_comando
-                    self.label_pendencia = None
+                                     self.Commands['not-handlers']['comandos_disponiveis'])
+                    user['last_msg']['pendings'] = True
                     
-                elif(msg.text.lower() == 's' and self.ultimo_comando != None):
+                elif(msg.text.lower() == 's' and user['new_msg']):
                     bot.send_message(msg.chat.id, 'SHOW!')
-                    self.write_dataset_comandos(self.label_pendencia + '\t' + self.ultimo_comando)
-                    self.ultimo_comando = None
-                    self.pendencias = None
-                    self.label_pendencia = None
-                    self.start_model_decode()
+                    append_arq('datasets/comandos', user['last_msg']['label'] + '\t' + user['last_msg']['msg'])
+                    retreinar = True
+                    
                 else:
                     comando_predito = self.prediz_comando(msg.text)
-                    self.ultimo_comando = msg.text
-                    self.label_pendencia = comando_predito
+                    user['last_msg']['msg'] = msg.text
+                    user['last_msg']['label'] = comando_predito
+                    user['last_msg']['pendings'] = False
+                    user['new_msg'] = True
                     bot.send_message(msg.chat.id, \
                                      '{}, entendi que se trata do comando: {}'.format(\
                                          msg.chat.first_name, comando_predito))
                     bot.send_message(msg.chat.id, 'Entendi certo? (s/n)')
 
+                if(retreinar):
+                    self.start_model_decode()
+                    user['last_msg']['pendings'] = False
+                    user['new_msg'] = False
+
         else:
+            ##MELHORAR ISSO
             text_ = ""
 
             if(len(msg.text.upper().split('LISTAR')) > 1):
@@ -194,3 +191,42 @@ class Decode:
 
             bot.send_message(msg.chat.id, text_)
 
+        #Atualizando os valores do chat no banco de dados global
+        self.Chats[msg.chat.username] = user
+
+    def decode_handler(self, handler, bot):
+        #Atualiza estado no arquivo de chats
+        try:
+            ch = self.Chats[handler.chat.username]
+        except KeyError:
+            create_chat(self.Chats, handler.chat.username, 0, handler.chat.id,\
+                        handler.chat.first_name)
+
+        try:
+            label = self.Commands['handlers'][handler.text]
+            text_ = ""
+            if(handler.text == "/help"):
+                text_ += handler.chat.first_name + ", os comandos que tenho disponiveis:\n\n"
+                text_ += "/help -> Mostra alguns informacoes default\n"
+                text_ += "/train -> Ativa e Desativa o Modo de Treino\n"
+                text_ += "/statistics -> Informa algumas estatisticas do Bot"
+                
+            elif(handler.text == "/train"):
+                self.TrainMode = not(self.TrainMode)
+                text_ = "Ok, desativei o modo de treino"
+                msg_log = handler.chat.username + " desativou o modo de treino."
+                if(self.TrainMode):
+                    text_ = "Beleza " + handler.chat.first_name + ", Modo de Treino ativo"
+                    msg_log = handler.chat.username + " ativou o modo de treino."
+                logging.debug(msg_log)
+
+            elif(handler.text == "/statistics"):
+                text_ = "Ainda nao terminei esta funcionalidade.."
+                
+            bot.reply_to(handler, text_)           
+            
+        except KeyError:
+            bot.reply_to(handler, handler.chat.first_name + \
+                         ", este comando nao e valido\nuse /help" +\
+                         " para mais informacoes")
+                
