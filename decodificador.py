@@ -26,13 +26,6 @@ class Decode:
     bow_transformer_ = None
     tfidf_transformer_ = None
 
-
-    #melhorar isso aqui
-    pendencias = None
-    label_pendencia = None
-    ultimo_comando = None
-    
-
     def __init__(self):
         #Iniciando o Log de treinamentos
         try:
