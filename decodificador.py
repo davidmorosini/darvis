@@ -64,8 +64,8 @@ class Decode:
         logging.debug('Carregando modelo para predicoes de comando')
 
         #Ler o dataset de comandos
-        comandos = pd.read_csv('datasets/comandos', sep='\t', names=['label', \
-                                                                     'comando'])
+        comandos = pd.read_csv('datasets/comandos', sep='\t',\
+                               names=['label', 'comando'], encoding="Latin-1")
         comandos['tamanho'] = comandos['comando'].apply(len)
 
         bow_transformer = CountVectorizer(analyzer=self.processa_comando).fit(\
@@ -144,10 +144,10 @@ class Decode:
                                          msg.chat.first_name, comando_predito))
                     bot.send_message(msg.chat.id, 'Entendi certo? (s/n)')
 
-                if(retreinar):
-                    self.start_model_decode()
-                    user['last_msg']['pendings'] = False
-                    user['new_msg'] = False
+            if(retreinar):
+                self.start_model_decode()
+                user['last_msg']['pendings'] = False
+                user['new_msg'] = False
 
         else:
             ##MELHORAR ISSO
