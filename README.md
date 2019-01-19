@@ -21,7 +21,7 @@ O projeto pretende reunir uma série de técnicas de Inteligência Artificial co
 		```$ pip install pyTelegramBotAPI```
 
 
-* Para maiores detalhes, utilize a documentação contida no (github)[https://github.com/eternnoir/pyTelegramBotAPI]
+* Para maiores detalhes, utilize a documentação contida no [github](https://github.com/eternnoir/pyTelegramBotAPI)
 
 
 ## Referências
