@@ -186,6 +186,7 @@ class Decode:
 
         #Atualizando os valores do chat no banco de dados global
         self.Chats[msg.chat.username] = user
+        flush_json('datasets/chats.json', self.Chats)
 
     def decode_handler(self, handler, bot):
         #Atualiza estado no arquivo de chats
