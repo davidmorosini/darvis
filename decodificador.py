@@ -2,7 +2,6 @@ from random import randint
 from utilidades import *
 from recomenda import *
 import logging
-import json
 
 import nltk
 from nltk.corpus import stopwords
@@ -12,7 +11,7 @@ import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.naive_bayes import MultinomialNB
-
+ 
 
 
 class Decode:
