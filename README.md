@@ -31,4 +31,12 @@ O projeto pretende reunir uma série de técnicas de Inteligência Artificial co
 * Datasets:
 	- [MovieLens](https://grouplens.org/datasets/movielens/)
 
-	
+
+## Docker
+
+* Suporte incluido baseado neste [link](http://www.easy-analysis.com/dockerizing-python-flask-app-and-conda-environment/).
+
+```$ docker build -t darvis:1.0 .```
+### Para rodar
+```$ docker run --name darvis -p 5001:443 --rm darvis:1.0```
+* A porta ```443``` foi usada por conta do telegram.
