@@ -5,24 +5,7 @@ import logging
 from chatterbot.trainers import ListTrainer
 from chatterbot import ChatBot
 
-class Decode:
-
-    def __init__(self):
-        self.bot_ = ChatBot('TW Chat Bot')
-        
-        conversa = ['Oi', 'Olá', 'Tudo bem?', 'Tudo ótimo', 
-            'Você gosta de programar?', 'Sim, eu programo em Python']
-
-        self.bot = ListTrainer(self.bot_)  
-        self.bot.train(conversa)
-        logging.info('Bot decoder sucess trained.')
-
-    def decode_msg(self, message):
-        resposta = self.bot_.get_response(message)
-        txt = 'Ainda não sei responder isso..'
-        if(float(resposta.confidence) > 0.5):
-            txt = resposta
-        return txt
+from xpert.nlp.decode import Decode
 
 class TelegramServer:
     def __init__(self, configs):
