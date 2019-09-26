@@ -3,3 +3,6 @@ token.json
 ./__pycache__
 ./Logs
 *.log
+.venv/
+*.sqlite3
+*.pickle
