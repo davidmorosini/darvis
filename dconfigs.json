@@ -1,0 +1,12 @@
+{
+    "telegram":{
+        "token":"dcore/telegram/token.json"
+    },
+    "log":{
+        "path":"dlog",
+        "name":"dlog.log",
+        "format":"%(levelname)s: %(message)s -- %(asctime)s ",
+        "dtformat":"%d/%m/%Y %I:%M:%S %p",
+        "filemode":"a"
+    }
+}
