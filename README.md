@@ -1,5 +1,11 @@
 # darvis Project
 
+<div align="center">
+  <img src="assets/darvis.png"><br><br>
+</div> 
+
+-----------------
+
 Projeto com objetivo de explorar o ambiente de desenvolvimento e utilizar a integração com o [Telegram](https://web.telegram.org/).
 
 O projeto pretende reunir uma série de técnicas de Inteligência Artificial como prática para tais.
