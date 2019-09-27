@@ -1,7 +1,7 @@
 # darvis Project
 
 <div align="center">
-  <img src="assets/darvis.png"><br><br>
+  <img src="assets/darvis.png">
 </div> 
 
 -----------------
