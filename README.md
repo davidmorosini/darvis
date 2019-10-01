@@ -1,4 +1,5 @@
 # darvis Project
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
 <div align="center">
   <img src="assets/darvis.png">
